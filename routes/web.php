@@ -11,27 +11,36 @@
 |
 */
 
-Route::get('/', function () {
-    return view("index");
+Route::get('/', 'HomeController@index')->name("Home");
+
+Route::group([
+    'prefix' => 'news',
+    'namespace' => 'News',
+    'as' => 'News.'
+], function () {
+    Route::get('/', 'IndexController@index')->name("index");
+    Route::get('/{id}', 'IndexController@show')->name("one");
 });
 
-Route::get('/about', function () {
-    return view("about");
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'Admin.'
+], function () {
+    Route::get('/', 'IndexController@index')->name("index");
+    Route::get('/users', 'IndexController@showUsers')->name("users");
+    Route::get('/news', 'IndexController@editNews')->name("news");
 });
 
-Route::get('/news', function () {
-    return view("news");
+
+Route::group([
+    'prefix' => 'categories',
+    'as' => 'Category.'
+], function () {
+    Route::get('/', 'CategoryController@index')->name("index");
+    Route::get('/{categoryLink}', 'CategoryController@show')->name("one");
 });
 
-Route::get('/news/1', function () {
-    return view("news1");
-});
 
-Route::get('/news/2', function () {
-    return view("news2");
-});
-
-Route::get('/news/3', function () {
-    return view("news3");
-});
 
