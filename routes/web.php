@@ -39,8 +39,11 @@ Route::group([
     'as' => 'Category.'
 ], function () {
     Route::get('/', 'CategoryController@index')->name("index");
-    Route::get('/{categoryLink}', 'CategoryController@show')->name("one");
+    Route::get('/{categoryName}', 'CategoryController@show')->name("one");
 });
 
 
+
+
+Auth::routes();
 

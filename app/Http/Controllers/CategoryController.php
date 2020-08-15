@@ -9,16 +9,24 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index() {
-        return view('categories.categories')->with('categories', Categories::getCategories());
+        return view('news.categories')->with('categories', Categories::getCategories());
     }
 
-    public function show($categoryLink) {
-        if (isset(Categories::getCategories()[$categoryLink])) {
-            $categoryId = Categories::getCategories()[$categoryLink]['id'];
-            $categoryName = Categories::getCategories()[$categoryLink]['title'];
-            return view('categories.news', ['category' => $categoryName])->with('news', News::getCategoryNews($categoryId));
+    public function show($categoryName) {
+        $error = true;
+
+        foreach (Categories::getCategories() as $category) {
+            if ($category['slug'] == $categoryName) {
+                $error = false;
+                break;
+            }
+        }
+
+        if (!$error) {
+            $name = Categories::getCategoryTitleByName($categoryName);
+            return view('news.category', ['category' => $name])->with('news', News::getNewsByCategoryName($categoryName));
         } else {
-            return view('categories.error');
+            return view('news.categoryError');
         }
     }
 }

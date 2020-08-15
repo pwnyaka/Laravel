@@ -9,14 +9,14 @@ use App\Http\Controllers\Controller;
 class IndexController extends Controller
 {
     public function index() {
-        return view('news.news')->with('news', News::getNews());
+        return view('news.index')->with('news', News::getNews());
     }
 
     public function show($id) {
-        if (News::getNewsOne($id)) {
-            return view('news.NewsOne')->with('news', News::getNewsOne($id));
+        if (array_key_exists($id, News::getNews())) {
+            return view('news.one')->with('news', News::getNewsOne($id));
         } else {
-            return view('news.error');
+            return view('news.newsError');
         }
     }
 }
