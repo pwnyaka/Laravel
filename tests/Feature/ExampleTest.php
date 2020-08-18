@@ -16,6 +16,21 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)->assertSee('Приветствуем Вас');
     }
+    public function testNewsTest()
+    {
+        $response = $this->get('/news');
+
+        $response->assertStatus(200)->assertSee('Новости')->assertViewIs('news.index');
+    }
+
+    public function testCreateNewsTest()
+    {
+        $uri = '/news';
+        $response = $this->post('/admin/create');
+
+        $response->assertRedirect($uri);
+    }
+
 }

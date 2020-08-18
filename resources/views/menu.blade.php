@@ -6,6 +6,7 @@
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="{{ route('Admin.index') }}">Админка</a>
             <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('Admin.create') }}">Создать новость</a>
                 <a class="dropdown-item" href="{{ route('Admin.users') }}">Пользователи</a>
                 <a class="dropdown-item" href="{{ route('Admin.news') }}">Управление новостями</a>
             </div>
