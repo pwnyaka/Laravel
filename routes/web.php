@@ -31,6 +31,7 @@ Route::group([
     Route::get('/', 'IndexController@index')->name("index");
     Route::get('/users', 'IndexController@showUsers')->name("users");
     Route::get('/news', 'IndexController@editNews')->name("news");
+    Route::match(['get', 'post'],'/create', 'IndexController@create')->name("create");
 });
 
 
