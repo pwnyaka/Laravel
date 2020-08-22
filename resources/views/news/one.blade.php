@@ -10,9 +10,10 @@
 
 @section('content')
     <div class="container">
-        @if (!$news['isPrivate'])
-            <h2><?=$news['title']?></h2>
-            <p><?=$news['text']?></p>
+        @if (!$news->isPrivate)
+            <h2><?=$news->title ?></h2>
+            <img class="news-img" src="{{ $news->image ?? asset('storage/default.jpg') }}" alt="">
+            <p><?=$news->text?></p>
         @else
             Новость приватная. Зарегистрируйтесь для просмотра ..
         @endif

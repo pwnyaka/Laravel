@@ -7,7 +7,6 @@
 @section('menu')
     @include('menu')
 @endsection
-
 @section('content')
     <div class="container">
         <h2>Новости категории {{ $category }}</h2>
@@ -16,10 +15,10 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <div class="caption">
-                            <h3>{{ $item['title'] }}</h3>
-                            <p>...</p>
-                            @if (!$item['isPrivate'])
-                                <p><a href="{{ route('News.one', $item['id']) }}" class="btn btn-primary" role="button">Подробнее</a></p>
+                            <h3>{{ $item->title }}</h3>
+                            <a href="{{ route('News.one', $item->id) }}"><img class="news-img__mini" src="{{ $item->image ?? asset('storage/default.jpg') }}" alt=""></a>
+                            @if (!$item->isPrivate)
+                                <p><a href="{{ route('News.one', $item->id) }}" class="btn btn-primary" role="button">Подробнее</a></p>
                             @endif
                         </div>
                     </div>

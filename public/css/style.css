@@ -1,0 +1,15 @@
+.news-img {
+    width: inherit;
+    height: 400px;
+    margin-bottom: 30px;
+}
+
+.news-img__mini {
+    width: 200px;
+    margin-bottom: 10px;
+    transition: all 0.1s;
+}
+
+.news-img__mini:hover {
+    filter: brightness(0.8);
+}
