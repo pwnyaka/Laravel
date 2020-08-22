@@ -5,26 +5,24 @@ namespace App\Http\Controllers;
 use App\Categories;
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
     public function index() {
-        return view('news.categories')->with('categories', Categories::getCategories());
+        $categories = DB::table('categories')->get();
+        return view('news.categories')->with('categories', $categories);
     }
 
     public function show($categoryName) {
-        $error = true;
+        $record = DB::table('categories')->where('slug', $categoryName)->first();
+        $error = $record ? false : true;
 
-        foreach (Categories::getCategories() as $category) {
-            if ($category['slug'] == $categoryName) {
-                $error = false;
-                break;
-            }
-        }
+        $news = DB::table('news')->where('category_id', $record->id)->get();
 
         if (!$error) {
-            $name = Categories::getCategoryTitleByName($categoryName);
-            return view('news.category', ['category' => $name])->with('news', News::getNewsByCategoryName($categoryName));
+            $name = $record->title;
+            return view('news.category', ['category' => $name])->with('news', $news);
         } else {
             return view('news.categoryError');
         }

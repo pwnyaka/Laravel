@@ -6,6 +6,7 @@ use App\Categories;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -23,25 +24,26 @@ class IndexController extends Controller
                 'text' => 'required',
             ]);
 
-            $newsContent = News::getNews();
-
             $addedNews = $request->except('_token');
-            $addedNews = ['id' => end($newsContent)['id'] + 1] + $addedNews;
-            if ($request->exists('isPrivate')) {
-                $addedNews['isPrivate'] = true;
+
+            $imgName = null;
+
+            if ($request->file('image')) {
+                $path = \Storage::putFile('public/img', $request->file('image'));
+                $name = \Storage::url($path);
+                $addedNews['image'] = $name;
             } else {
-                $addedNews['isPrivate'] = false;
+                $addedNews['image'] = $imgName;
             }
-            array_push($newsContent, $addedNews);
-            $newsContent = json_encode($newsContent);
-            $path = \Storage::path('public/news.txt');
-            \File::put($path, $newsContent);
+
+            DB::table('news')->insert($addedNews);
+
             return redirect()->route('News.index');
 
         }
 
         return view('admin.create', [
-            'categories' => Categories::getCategories()
+            'categories' => DB::table('categories')->get()
         ]);
     }
 
