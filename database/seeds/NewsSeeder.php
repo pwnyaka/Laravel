@@ -20,7 +20,7 @@ class NewsSeeder extends Seeder
 
         $faker = Faker\Factory::create('ru_RU');
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             $data[] = [
                 'title' => $faker->realText(rand(10,30)),
                 'text' => $faker->realText(rand(1000, 3000)),

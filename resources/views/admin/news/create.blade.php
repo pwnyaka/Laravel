@@ -2,7 +2,6 @@
 
 @section('title', 'Создание новости')
 
-
 @section ('menu')
     @include('admin.menu')
 @endsection
@@ -16,23 +15,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form enctype="multipart/form-data" action="{{ route('Admin.create') }}" method="post">
+                        <form enctype="multipart/form-data" action="@if (!$news->id){{ route('Admin.news.store') }}@else{{ route('Admin.news.update', $news) }}@endif" method="post">
                             @csrf
 
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            @if($news->id) @method('PUT') @endif
 
                             <div class="form-group">
                                 <label for="newsTitle">Заголовок новости</label>
                                 <input type="text" name="title" id="newsTitle" class="form-control"
-                                       value="{{ old('title') }}">
+                                       value="{{ $news->title ?? old('title')}}">
                             </div>
 
                             <div class="form-group">
@@ -40,7 +31,7 @@
                                 <select name="category_id" id="newsCategory" class="form-control">
 
                                     @forelse($categories as $item)
-                                        <option @if ($item->id == old('category')) selected
+                                        <option @if ($item->id == old('category') || $news->category_id == $item->id) selected
                                                 @endif value="{{ $item->id }}">{{ $item->title }}</option>
                                     @empty
                                         <option value="0" selected>Нет категории</option>
@@ -50,7 +41,7 @@
 
                             <div class="form-group">
                                 <label for="newsText">Текст новости</label>
-                                <textarea name="text" id="newsText" class="form-control">{{ old('text') }}</textarea>
+                                <textarea name="text" id="newsText" class="form-control">{{ $news->text ?? old('text') }}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -59,14 +50,14 @@
                             </div>
 
                             <div class="form-check">
-                                <input @if (old('isPrivate') === "1") checked @endif  id="newsPrivate" name="isPrivate"
+                                <input @if ($news->isPrivate == 1 || old('isPrivate') == 1) checked @endif  id="newsPrivate" name="isPrivate"
                                        type="checkbox" value="1" class="form-check-input">
                                 <label for="newsPrivate">Приватная</label>
 
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" class="btn btn-outline-primary" value="Добавить новость">
+                                <input type="submit" class="btn btn-outline-primary" value="@if ($news->id) Изменить @else Добавить новость @endif">
                             </div>
                         </form>
                     </div>

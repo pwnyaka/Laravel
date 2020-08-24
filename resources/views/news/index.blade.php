@@ -7,7 +7,6 @@
 @section('menu')
     @include('menu')
 @endsection
-
 @section('content')
     <div class="container">
         <div class="row justify-content-left">
@@ -27,6 +26,7 @@
                 Нет новостей
             @endforelse
         </div>
+        {{ $news->links() }}
     </div>
 @endsection
 

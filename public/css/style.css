@@ -13,3 +13,11 @@
 .news-img__mini:hover {
     filter: brightness(0.8);
 }
+
+.admin-buttons {
+    display: flex;
+}
+
+.admin-buttons > form {
+    margin-left: 10px;
+}
