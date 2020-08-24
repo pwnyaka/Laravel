@@ -19,7 +19,7 @@ Route::group([
     'as' => 'News.'
 ], function () {
     Route::get('/', 'IndexController@index')->name("index");
-    Route::get('/{id}', 'IndexController@show')->name("one");
+    Route::get('/{news}', 'IndexController@show')->name("one");
 });
 
 
@@ -29,9 +29,8 @@ Route::group([
     'as' => 'Admin.'
 ], function () {
     Route::get('/', 'IndexController@index')->name("index");
-    Route::get('/users', 'IndexController@showUsers')->name("users");
-    Route::get('/news', 'IndexController@editNews')->name("news");
-    Route::match(['get', 'post'],'/create', 'IndexController@create')->name("create");
+    Route::resource('categories', 'CategoriesController')->except(['show']);
+    Route::resource('news', 'NewsController')->except(['show']);
 });
 
 
@@ -42,8 +41,6 @@ Route::group([
     Route::get('/', 'CategoryController@index')->name("index");
     Route::get('/{categoryName}', 'CategoryController@show')->name("one");
 });
-
-
 
 
 Auth::routes();

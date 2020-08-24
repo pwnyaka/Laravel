@@ -1,5 +1,4 @@
 @extends('layouts.main')
-
 @section('title')
     @parentНовости
 @endsection
