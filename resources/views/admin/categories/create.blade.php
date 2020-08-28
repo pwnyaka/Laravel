@@ -18,12 +18,17 @@
                             @if ($category->id) @method('PUT') @endif
                             <div class="form-group">
                                 <label for="categoryTitle">Название категории</label>
-                                <input type="text" name="title" id="categoryTitle" class="form-control"
-                                       value="{{ $category->title ?? old('title')}}">
+                                <input type="text" name="title" id="categoryTitle" class="form-control @if($errors->has('title')) is-invalid @endif"
+                                       value="{{ old('title') ?? $category->title }}">
+                                @if($errors->has('title'))
+                                    @foreach($errors->get('title') as $error)
+                                        <div class="invalid-feedback">{{ $error }}</div>
+                                    @endforeach
+                                @endif
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" class="btn btn-outline-primary" value="@if ($category->id) Изменить @else Добавить категорию @endif">
+                                <input type="submit" class="btn btn-outline-primary" value="@if ($category->id) Изменить @elseДобавить категорию@endif">
                             </div>
                         </form>
                     </div>

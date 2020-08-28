@@ -3,7 +3,7 @@
     <li class="nav-item"><a class="nav-link" href="{{ route('Admin.news.index') }}">Главная админка</a></li>
     <li class="nav-item">
         <div class="dropdown">
-            <a class="nav-link dropdown-toggle" href="{{ route('Admin.news.index') }}">Управление новостями</a>
+            <a class="nav-link dropdown-toggle {{ request()->routeIs('Admin.news.index')?'active':'' }}" href="{{ route('Admin.news.index') }}">Управление новостями</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('Admin.news.create') }}">Создать новость</a>
             </div>
@@ -11,7 +11,7 @@
     </li>
     <li class="nav-item">
         <div class="dropdown">
-            <a class="nav-link dropdown-toggle" href="{{ route('Admin.categories.index') }}">Управление категориями</a>
+            <a class="nav-link dropdown-toggle {{ request()->routeIs('Admin.categories.index')?'active':'' }}" href="{{ route('Admin.categories.index') }}">Управление категориями</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('Admin.categories.create') }}">Создать категорию</a>
             </div>

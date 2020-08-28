@@ -21,3 +21,7 @@
 .admin-buttons > form {
     margin-left: 10px;
 }
+
+.invalid-feedback {
+    display: block;
+}

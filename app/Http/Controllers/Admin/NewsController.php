@@ -36,9 +36,17 @@ class NewsController extends Controller
             $data['image'] = \Storage::url($path);
         }
 
-        $news->fill($data)->save();
+        $this->validate($request, News::rules(), [], News::attrNames());
 
-        return redirect()->route('Admin.news.create')->with('success', 'Новость добавлена успешно!');
+        $result = $news->fill($data)->save();
+
+        if ($result) {
+            return redirect()->route('Admin.news.create')->with('success', 'Новость добавлена успешно!');
+        } else {
+            return redirect()->route('Admin.news.create')->with('error', 'Ошибка добавления новости!');
+        }
+
+
     }
 
     public function edit(News $news)
@@ -59,8 +67,15 @@ class NewsController extends Controller
 
         $data = $request->except('_token');
         if (!isset($data['isPrivate'])) $data['isPrivate'] = 0;
-        $news->fill($data)->save();
-        return redirect()->route('Admin.news.index')->with('success', 'Новость изменена успешно!');
+
+        $this->validate($request, News::rules(), [], News::attrNames());
+        $result = $news->fill($data)->save();
+
+        if ($result) {
+            return redirect()->route('Admin.news.create')->with('success', 'Новость добавлена успешно!');
+        } else {
+            return redirect()->route('Admin.news.create')->with('error', 'Ошибка добавления новости!');
+        }
     }
 
     public function destroy(News $news)
