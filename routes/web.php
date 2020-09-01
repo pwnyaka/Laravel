@@ -26,11 +26,24 @@ Route::group([
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
-    'as' => 'Admin.'
+    'as' => 'Admin.',
+    'middleware' => ['auth', 'is_admin'],
 ], function () {
     Route::get('/', 'IndexController@index')->name("index");
     Route::resource('categories', 'CategoriesController')->except(['show']);
     Route::resource('news', 'NewsController')->except(['show']);
+    Route::resource('users', 'UsersController')->except(['show']);
+    Route::post('users/{id}/toggle-status', 'UsersController@toggleStatus');
+    Route::match(['get', 'post'], '/profile', 'ProfileController@update')->name('updateProfile');
+});
+
+Route::group([
+    'prefix' => 'user',
+    'namespace' => 'User',
+    'as' => 'User.',
+    'middleware' => 'auth',
+], function () {
+    Route::match(['get', 'post'], '/profile', 'ProfileController@update')->name('updateProfile');
 });
 
 

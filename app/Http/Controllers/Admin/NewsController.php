@@ -72,9 +72,9 @@ class NewsController extends Controller
         $result = $news->fill($data)->save();
 
         if ($result) {
-            return redirect()->route('Admin.news.create')->with('success', 'Новость добавлена успешно!');
+            return redirect()->route('Admin.news.create')->with('success', 'Новость изменена успешно!');
         } else {
-            return redirect()->route('Admin.news.create')->with('error', 'Ошибка добавления новости!');
+            return redirect()->route('Admin.news.create')->with('error', 'Ошибка изменения новости!');
         }
     }
 

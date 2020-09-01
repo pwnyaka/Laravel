@@ -17,6 +17,14 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <div class="dropdown">
+            <a class="nav-link dropdown-toggle {{ request()->routeIs('Admin.users.index')?'active':'' }}" href="{{ route('Admin.users.index') }}">Управление пользователями</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('Admin.users.create') }}">Добавить пользователя</a>
+            </div>
+        </div>
+    </li>
 </ul>
 
 

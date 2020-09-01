@@ -25,7 +25,7 @@ class NewsSeeder extends Seeder
                 'title' => $faker->realText(rand(10,30)),
                 'text' => $faker->realText(rand(1000, 3000)),
                 'isPrivate' => (bool)rand(0, 1),
-                'category_id' => random_int(1, 3), // решил просто сделать пока для практики, не связаны ключами таблицы это да
+                'category_id' => random_int(1, 3),
             ];
         }
 
