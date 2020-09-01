@@ -15,20 +15,8 @@ class CategoriesController extends Controller
         return view('admin.categories.index')->with('categories', $categories);
     }
 
-    public function create(Request $request)
+    public function create()
     {
-
-        if ($request->isMethod('post')) {
-
-            $category = new Category();
-
-            $data = $request->except('_token');
-            $data['slug'] = Str::slug($data['title'], '-');
-            $category->fill($data)->save();
-
-            return redirect()->route('Admin.categories.index')->with('success', 'Категория добавлена успешно!');
-        }
-
         $category = new Category();
         return view('admin.categories.create', [
             'category' => $category,
@@ -41,9 +29,14 @@ class CategoriesController extends Controller
 
         $data = $request->except('_token');
         $data['slug'] = Str::slug($data['title'], '-');
-        $category->fill($data)->save();
+        $this->validate($request, Category::rules(), [], Category::attrNames());
+        $result = $category->fill($data)->save();
 
-        return redirect()->route('Admin.categories.index')->with('success', 'Категория добавлена успешно!');
+        if ($result) {
+            return redirect()->route('Admin.categories.index')->with('success', 'Категория добавлена успешно!');
+        } else {
+            return redirect()->route('Admin.categories.index')->with('error', 'Ошибка добавления категории!');
+        }
     }
 
     public function edit(Category $category)
@@ -58,8 +51,15 @@ class CategoriesController extends Controller
 
         $data = $request->except('_token');
         $data['slug'] = Str::slug($data['title'], '-');
-        $category->fill($data)->save();
-        return redirect()->route('Admin.categories.index')->with('success', 'Категория изменена успешно!');
+
+        $this->validate($request, Category::rules(), [], Category::attrNames());
+        $result = $category->fill($data)->save();
+
+        if ($result) {
+            return redirect()->route('Admin.categories.index')->with('success', 'Категория добавлена успешно!');
+        } else {
+            return redirect()->route('Admin.categories.index')->with('error', 'Ошибка добавления категории!');
+        }
     }
 
     public function destroy(Category $category)

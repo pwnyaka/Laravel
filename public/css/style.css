@@ -18,6 +18,11 @@
     display: flex;
 }
 
-.admin-buttons > form {
+.admin-buttons > button, .admin-buttons > form {
     margin-left: 10px;
+}
+
+
+.invalid-feedback {
+    display: block;
 }
