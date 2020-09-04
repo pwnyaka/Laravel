@@ -1,6 +1,4 @@
 .news-img {
-    width: inherit;
-    height: 400px;
     margin-bottom: 30px;
 }
 
@@ -25,4 +23,14 @@
 
 .invalid-feedback {
     display: block;
+}
+
+.avatar {
+    width: 40px;
+    border-radius: 50px;
+}
+
+.profile-bar {
+    display: flex;
+    align-items: center;
 }
