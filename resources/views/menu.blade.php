@@ -12,6 +12,10 @@
             </div>
         </div>
         </li>@endif
+    <li class="nav-item"><a class="nav-link" href="{{ route('Social.vk.login') }}">Вход через VK</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('Social.github.login') }}">Вход через GitHub</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('info') }}">info</a></li>
+
 </ul>
 
 
