@@ -15,7 +15,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <div class="caption">
-                            <h3>{{ $item->title }}</h3>
+                            <h5>{{ $item->title }}</h5>
                             <a href="{{ route('News.one', $item->id) }}"><img class="news-img__mini" src="{{ $item->image ?? asset('storage/default.jpg') }}" alt=""></a>
                             @if (!$item->isPrivate)
                                 <p><a href="{{ route('News.one', $item->id) }}" class="btn btn-primary" role="button">Подробнее</a></p>
