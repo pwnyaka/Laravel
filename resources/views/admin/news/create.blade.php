@@ -61,7 +61,7 @@
                             <div class="form-group">
                                 <label for="newsText">Текст новости</label>
                                 <textarea name="text" id="newsText"
-                                          class="form-control @if($errors->has('text')) is-invalid @endif">{{ old('text') ?? $news->text }}</textarea>
+                                          class="form-control @if($errors->has('text')) is-invalid @endif">{!! old('text') ?? $news->text !!}</textarea>
                                 @if($errors->has('text'))
                                     @foreach($errors->get('text') as $error)
                                         <div class="invalid-feedback">{{ $error }}</div>

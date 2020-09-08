@@ -4,7 +4,7 @@
 namespace App\Repositories;
 
 use App\User;
-use SocialiteProviders\Manager\OAuth2\User as UserOauth;
+use Laravel\Socialite\Two\User as UserOauth;
 
 
 class UserRepository
@@ -23,6 +23,7 @@ class UserRepository
                 'password' => '',
                 'id_in_soc' => !empty($user->getId()) ? $user->getId() : '',
                 'type_auth' => $socName,
+                'email_verified_at' => now(),
                 'avatar' => !empty($user->getAvatar()) ? $user->getAvatar() : '',
 
             ])->save();

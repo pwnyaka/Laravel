@@ -56,6 +56,8 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
+                                <a href="{{ route('loginVK') }}"><img src="{{ asset('storage/images/vk.png') }}" alt="" width="40"></a>
+                                <a href="{{ route('gitlogin') }}"><img src="{{ asset('storage/images/github.png') }}" alt="" width="40"></a>
                             </div>
                         </div>
 

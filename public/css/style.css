@@ -34,3 +34,11 @@
     display: flex;
     align-items: center;
 }
+
+.news-text {
+    font-size: 16px;
+}
+
+.news-title {
+    height: 65px;
+}

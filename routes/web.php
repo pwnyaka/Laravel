@@ -12,35 +12,12 @@
 */
 
 Route::get('/', 'HomeController@index')->name("Home");
-Route::get('/info', 'HomeController@info')->name("info");
 
-Route::group([
-    'prefix' => 'social',
-    'namespace' => 'Social',
-    'as' => 'Social.'
-], function () {
-    Route::group([
-        'prefix' => 'vk',
-        'namespace' => 'VK',
-        'as' => 'vk.'
-    ], function () {
-        Route::get('/auth', 'LoginController@login')->name("login");
-        Route::get('/auth/response', 'LoginController@response')->name("response");
-    });
-    Route::group([
-        'prefix' => 'github',
-        'namespace' => 'GitHub',
-        'as' => 'github.'
-    ], function () {
-        Route::get('/auth', 'LoginController@login')->name("login");
-        Route::get('/auth/response', 'LoginController@response')->name("response");
-    });
-});
+Route::get('auth/vk', 'LoginController@loginVK')->name('loginVK');
+Route::get('auth/vk/response', 'LoginController@responseVK')->name('responseVK');
 
-
-
-//Route::get('auth/vk', 'LoginController@loginVK')->name('loginVK');
-//Route::get('auth/vk/response', 'LoginController@responseVK')->name('responseVK');
+Route::get('/auth/git', 'LoginController@loginGitHub')->name('gitlogin');
+Route::get('/auth/git/response', 'LoginController@responseGit')->name('gitResponse');
 
 Route::group([
     'prefix' => 'news',
@@ -62,6 +39,7 @@ Route::group([
     Route::resource('categories', 'CategoriesController')->except(['show']);
     Route::resource('news', 'NewsController')->except(['show']);
     Route::resource('users', 'UsersController')->except(['show']);
+    Route::resource('resources', 'ResourcesController')->except(['show']);
     Route::post('users/{id}/toggle-status', 'UsersController@toggleStatus');
     Route::match(['get', 'post'], '/profile', 'ProfileController@update')->name('updateProfile');
     Route::get('parser', 'ParserController@index')->name('parser');
@@ -87,4 +65,8 @@ Route::group([
 
 
 Auth::routes();
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'is_admin', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 

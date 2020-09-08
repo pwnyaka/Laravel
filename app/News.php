@@ -17,7 +17,7 @@ class News extends Model
     {
         $tableNameCategory = (new Category())->getTable();
         return [
-            'title' => 'required|min:3:|max:30',
+            'title' => 'required|min:3:|max:250',
             'text' => 'required|min:3',
             'image' => 'mimes:jpeg,bmp,png|max:3000',
             'isPrivate' => 'sometimes|accepted',
