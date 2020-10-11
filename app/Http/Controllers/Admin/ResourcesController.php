@@ -36,17 +36,16 @@ class ResourcesController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(Resources $rsc)
     {
-        $rsc = Resources::query()->find($id);
         return view('admin.resources.create', [
             'rsc' => $rsc,
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Resources $rsc)
     {
-        $rsc = Resources::query()->find($id);
+
         $this->validate($request, Resources::rules(), [], Resources::attrNames());
         $result = $rsc->fill($request->all())->save();
 
@@ -57,9 +56,8 @@ class ResourcesController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Resources $rsc)
     {
-        $rsc = Resources::query()->find($id);
         $rsc->delete();
         return redirect()->route('Admin.resources.index')->with('success', 'Ресурс удален успешно!');
     }
