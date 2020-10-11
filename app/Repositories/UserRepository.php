@@ -3,6 +3,7 @@
 
 namespace App\Repositories;
 
+use App\BindingAccount;
 use App\User;
 use Laravel\Socialite\Two\User as UserOauth;
 
@@ -30,5 +31,24 @@ class UserRepository
         }
 
         return $userInSystem;
+    }
+
+    public function hasSameEmail(UserOauth $user, string $socName) {
+
+        $userInSystem = User::query()
+            ->where('email', $user->getEmail())
+            ->where('type_auth','<>', $socName)
+            ->first();
+        if (!is_null($userInSystem)) {
+            $id = $userInSystem->id;
+            if (!$this->checkBinding($id)) return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkBinding($id) {
+        $bindingAcc = BindingAccount::query()->where('user_id', $id)->first();
+        return !is_null($bindingAcc) ? true : false;
     }
 }

@@ -13,11 +13,13 @@
 
 Route::get('/', 'HomeController@index')->name("Home");
 
-Route::get('auth/vk', 'LoginController@loginVK')->name('loginVK');
-Route::get('auth/vk/response', 'LoginController@responseVK')->name('responseVK');
+Route::get('auth/{vk}', 'LoginController@loginVK')->name('loginVK');
+Route::get('auth/{vk}/response', 'LoginController@response')->name('responseVK');
 
-Route::get('/auth/git', 'LoginController@loginGitHub')->name('gitlogin');
-Route::get('/auth/git/response', 'LoginController@responseGit')->name('gitResponse');
+Route::get('/auth/{git}', 'LoginController@loginGitHub')->name('gitlogin');
+Route::get('/auth/{git}/response', 'LoginController@response')->name('gitResponse');
+
+Route::get('auth/binding/{email}', 'LoginController@bindAccounts')->name('binding');
 
 Route::group([
     'prefix' => 'news',
@@ -65,4 +67,8 @@ Route::group([
 
 
 Auth::routes();
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'is_admin', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 

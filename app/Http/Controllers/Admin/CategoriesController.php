@@ -64,7 +64,6 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
-        dd($category);
         $category->news()->delete();
         $category->delete();
         return redirect()->route('Admin.categories.index')->with('success', 'Категория удалена успешно!');
